@@ -1,0 +1,42 @@
+services:
+
+  # ✅ MYSQL
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: unidad2
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # ✅ BACKEND
+  backend:
+    build: ./backend
+    container_name: backend_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: unidad2
+      JWT_SECRET: mi_secreto_super_seguro
+    depends_on:
+      - db
+
+  # ✅ FRONTEND
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
