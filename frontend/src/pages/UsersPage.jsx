@@ -16,8 +16,14 @@ function UsersPage({ setToken }) {
     if (Array.isArray(data)) {
       setUsers(data);
     } else {
-      alert(data.message || "Error al cargar usuarios");
+      if (data.message === "Token inválido" || data.message === "Token requerido") {
+        alert("Sesión expirada, vuelve a iniciar sesión 🔐");
+
+        localStorage.removeItem("token");
+        setToken('');
+      }
     }
+
   };
 
 
