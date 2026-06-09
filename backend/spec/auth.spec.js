@@ -96,3 +96,29 @@ describe("AuthController - Login", () => {
   });
 
 });
+
+
+describe("AuthController - Recover Password", () => {
+
+  it("debe generar token de recuperación", () => {
+
+    const authController = require('../src/controllers/authController');
+
+    const req = {
+      body: {
+        email: "test@test.com"
+      }
+    };
+
+    const res = {
+      json: jasmine.createSpy()
+    };
+
+    authController.recoverPassword(req, res);
+
+    expect(res.json).toHaveBeenCalled();
+
+  });
+
+});
+

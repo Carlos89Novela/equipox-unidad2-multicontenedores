@@ -1,9 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 const userModel = require('../models/userModel');
 
-// ✅ REGISTER
+// REGISTER
 const register = (req, res) => {
   const { name, email, password } = req.body;
 
@@ -24,7 +23,7 @@ const register = (req, res) => {
   );
 };
 
-// ✅ LOGIN
+// LOGIN
 const login = (req, res) => {
   const { email, password } = req.body;
 
@@ -48,14 +47,29 @@ const login = (req, res) => {
   });
 };
 
-// ✅ LOGOUT
+// LOGOUT
 const logout = (req, res) => {
   res.json({ message: 'Logout exitoso ✅' });
 };
 
+// ✅ RECOVER PASSWORD
+const recoverPassword = (req, res) => {
+  const { email } = req.body;
+
+  const token = Math.random().toString(36).substring(2);
+
+  console.log(`Token enviado a ${email}: ${token}`);
+
+  res.json({
+    message: 'Recuperación simulada',
+    token
+  });
+};
+
+// ✅ EXPORTAR TODO
 module.exports = {
   register,
   login,
-  logout
+  logout,
+  recoverPassword
 };
-``
